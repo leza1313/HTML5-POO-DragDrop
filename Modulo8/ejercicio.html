@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <h1>Lector ficheros de texto</h1>
+                <hr />
+                <div class="form-group">
+                    <label>Selecciona una imagen:</label>
+                    <input type="file" name="f1" id="f1" class="form-control" value="" multiple/>
+                </div>
+                <br />
+                <div id="imagenes" class="text-center">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-3.0.0.js"></script>
+    <script>
+        
+        document.getElementById('f1').onchange = function () {
+            var ficheros = document.getElementById('f1').files;
+            for (var i = 0; i < ficheros.length;i++) {
+                if (ficheros[i].type.match(/image.*/)) {
+                    console.log('Si imagen:' + ficheros[i].name);
+                    var lector = new FileReader();
+                    lector.onload = function () {
+                        var div = document.getElementById('imagenes');
+                        var im = document.createElement('img');
+                        im.src = event.target.result;
+                        im.setAttribute('class','img-thumbnail');
+                        im.setAttribute('width', '30%');
+                        im.addEventListener('click',function (event) {
+                            var ima = event.target;
+                            ima.parentNode.removeChild(ima);
+                        });
+                        div.appendChild(im);
+                    };
+                    lector.onerror = function () {
+                        alert('Error al leer la imagen');
+                    };
+                    lector.readAsDataURL(ficheros[i]);
+                } else {
+                    alert('No es una imagen: ' + ficheros[i].name);
+                }
+
+            }
+        };
+        $('#f2').bind('change', function () {
+            var ficheros = $('#f1');
+            console.log(ficheros);
+        });
+    </script>
+</body>
+</html>

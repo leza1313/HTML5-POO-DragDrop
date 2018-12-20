@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modulo7 - Objetos y metodos JS", "Modulo7\Modulo7 - Objetos y metodos JS.csproj", "{017E19ED-FC4C-48DB-A26D-1D9E806F3ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modulo8 - DragDrop", "Modulo8\Modulo8 - DragDrop.csproj", "{4E49DA72-BE34-4B4D-8F40-F4E5F258DFC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{017E19ED-FC4C-48DB-A26D-1D9E806F3ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017E19ED-FC4C-48DB-A26D-1D9E806F3ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017E19ED-FC4C-48DB-A26D-1D9E806F3ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017E19ED-FC4C-48DB-A26D-1D9E806F3ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E49DA72-BE34-4B4D-8F40-F4E5F258DFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E49DA72-BE34-4B4D-8F40-F4E5F258DFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E49DA72-BE34-4B4D-8F40-F4E5F258DFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E49DA72-BE34-4B4D-8F40-F4E5F258DFC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05075E1A-BA63-4857-AD5F-380198CAD225}
+	EndGlobalSection
+EndGlobal

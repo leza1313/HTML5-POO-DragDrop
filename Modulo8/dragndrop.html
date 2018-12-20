@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Subir Imagenes:</h1>
+                <div draggable="true" id="zona" class="text-center" style="margin:30px; padding:50px; border: 3px dotted red">
+                    <p><b>Soltar aqui los ficheros</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="d1" class="col-md-12" style="border: 3px solid blue; width: 100%; height:200px;">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+                <div id="imagenes" style="height:200px"></div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Ficheros no admitidos</h2>
+                <hr />
+                <div id="info"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function drag(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+        };
+        document.getElementById('zona').addEventListener("dragover", drag);
+        document.getElementById('zona').addEventListener("dragenter", drag);
+        document.getElementById('zona').addEventListener("drop", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            var ficheros = event.dataTransfer.files;
+            for (var i = 0; i < ficheros.length; i++) {
+                (function (posicion) {
+                    if (ficheros[i].type.match(/image.*/)) {
+                        //Es imagen
+                        //TODO declarar lector=FileReader(); //lector.onload=fun //lector.onerror=fun //lector.readAsDataURL();
+                        var lector = new FileReader();
+
+                        lector.onload = function (event) {
+                            var im = document.createElement('img');
+                            im.id = 'item' + posicion;
+                            im.setAttribute('draggable','true');
+                            im.src = event.target.result;
+                            im.className = 'img-thumbnail';
+                            im.setAttribute('width', '30%');
+                            im.addEventListener('click', function (event) {
+                                var ima = event.target;
+                                ima.parentNode.removeChild(ima);
+                            });
+                            im.addEventListener('dragstart', function (event) {
+                                event.dataTransfer.setData('text', event.target.id);
+                            });
+                            document.getElementById('imagenes').appendChild(im);
+                        };
+                        lector.onerror = function () {
+                            alert('ERROR al leer imagen');
+                        };
+                        lector.readAsDataURL(ficheros[i]);
+
+                    } else {
+                        //No es imagen
+                        var p = document.createElement('p');
+                        p.innerHTML = ficheros[i].name + ' no es una imagen';
+                        p.className = 'text-danger'
+                        document.getElementById('info').appendChild(p);
+                    }
+                })(i);
+            }
+        });
+        document.getElementById('d1').ondragover = function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+        document.getElementById('d1').ondrop = function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            var id = event.dataTransfer.getData('text');
+            var item = document.getElementById(id);
+            document.getElementById('d1').appendChild(item);
+            item.setAttribute('width', '200px');
+            
+        }
+        document.getElementById('imagenes').ondragover = function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+        document.getElementById('imagenes').ondrop = function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            var id = event.dataTransfer.getData('text');
+            var item = document.getElementById(id);
+            document.getElementById('imagenes').appendChild(item);
+            item.setAttribute('width', '30%');
+
+        }
+    </script>
+</body>
+</html>

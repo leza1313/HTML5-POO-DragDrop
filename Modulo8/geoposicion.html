@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Demo GeoPosicion</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>
+                    <b>Estado de la conexion:</b>
+                    <span id="estado" class="text-danger"></span>
+                    <br />
+                    <b>Conectado:</b>
+                    <span id="conectado" class="text-center"></span>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-2 text-center">
+                <h1>Latitud</h1>
+                <h2 id="lat"></h2>
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Longitud</h1>
+                <h2 id="lon"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <h2 id="error" class="text-danger"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col md 12">
+                <div id="mapa"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://maps.google.com/maps/api/js?sensor=false&key=AIzaSyAqdSQ03SzX5FeVLMPAXndBdQ_PTCNCnq0"></script>
+    <script>
+        window.onload = function () {
+            navigator.geolocation.getCurrentPosition(gpsOK, gpsERROR, { enableHighAccuracy: true, timeout: 5000 });
+            document.getElementById('conectado').innerHTML = navigator.onLine;
+
+            window.addEventListener('offline', function () {
+                document.getElementById('estado').innerHTML = 'Desconectado';
+                document.getElementById('conectado').innerHTML = navigator.onLine;
+            });
+            window.addEventListener('online', function () {
+                document.getElementById('estado').innerHTML = 'Conectado';
+                document.getElementById('conectado').innerHTML = navigator.onLine;
+            });
+        };
+        function gpsOK(posicion) {
+            var latitud = posicion.coords.latitude;
+            var longitud = posicion.coords.longitude;
+            var precision = posicion.coords.accuracy;
+            var orientacion = posicion.coords.heading;
+            var velocidad = posicion.coords.speed;
+            var altitud = posicion.coords.altitude;
+            var altitudprecision = posicion.coords.altitudeaccuracy;
+
+            document.getElementById('lat').innerHTML = latitud;
+            document.getElementById('lon').innerHTML = longitud;
+            PintarMapa(latitud, longitud);
+        }
+        function gpsERROR(error) {
+            var texto;
+            switch (error.code) {
+                case error.PERMISSION_DENIED: //1
+                    texto='Permiso denegado'
+                    break;
+                case error.POSITION_UNAVAILABLE: //2
+                    texto = 'Posicion no disponible'
+                    break;
+                case error.TIMEOUT: //3
+                    texto = 'Tiempo.'
+                    break;
+                case error.UNKNOWN_ERROR:
+                    texto='Error desconocido'
+                    break;
+                default:
+                    texto='Error indefinido'
+                    break;
+            }
+            document.getElementById('error').innerHTML = texto;
+        }
+        function PintarMapa(lat, lon) {
+            var latlon = new google.maps.LatLng(lat, lon);
+            var opciones = {
+                center: latlon,
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                navigationConrolOptions: {
+                    style: google.maps.NavigationControlStyle.SMALL
+                }
+            };
+            
+            document.getElementById('mapa').style.height = '400px';
+            document.getElementById('mapa').style.width = '100%';
+            var mapa = new google.maps.Map(document.getElementById('mapa'), opciones);
+
+            var maker = new google.maps.Marker({
+                position: latlon,
+                map: mapa,
+                title: 'Estoy Aqui !!!'
+            });
+
+
+        }
+    </script>
+</body>
+</html>

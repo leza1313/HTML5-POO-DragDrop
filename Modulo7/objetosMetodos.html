@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Hola Mundo</h1>
+    <script>
+        
+        {
+            ////Creacion de Objetos, totalmente iguales una manera de la otra
+            //var empleado1 = new Object();
+            //var empleado2 = {};
+
+            ////Definir propiedades de un objeto, connotacion JS
+            //empleado1.Nombre = 'John Doe';
+            //empleado1.Edad = 35;
+            //empleado1.Salario = 10000;
+            //empleado1.PintarDatos = function () {
+            //    alert(this.Nombre + ' - ' + this.Edad);
+            //};
+            //empleado1.PintarDatos();
+
+            ////Definir propiedades de un objeto, connotacion Object
+            //empleado2 = {
+            //    Nombre: 'John Doe',
+            //    Edad: 36,
+            //    Salario: 10000,
+            //    PintarDatos: function () {
+            //        alert(this.Nombre + ' - ' + this.Edad);
+            //    }
+            //};
+            //    empleado2.PintarDatos();
+        }
+        {
+            ////Definir constructores (clase)
+            //var Empleado = function (nombre, edad) {
+            //    this.Nombre = nombre;
+            //    this.Edad = edad;
+            //    this.Salario = 0;
+            //    this.PintarSalario = function () {
+            //        alert('Salario: '+this.Salario);
+            //    }
+            //};
+            ////Extendemos el constructor Empleado con nuevos miembros
+            ////Manera 1
+            //Empleado.prototype = {
+            //    PintarSalario: function () {
+            //        alert(this.Salario);
+            //    },
+            //    Departamento: ''
+            //};
+            ////Manera 2
+            ////Empleado.prototype.PintarSalario = function () {
+            ////    alert(this.Salario);
+            ////};
+            ////Empleado.prototype.Departamento = '';
+            //var Alumno = function () {
+            //    this.Nombre = '';
+            //    this.Edad = 0;
+            //    this.Curso = '';
+            //};
+            //var e1 = new Empleado('John Doey',37);
+            //var e2 = new Empleado('Doe', 38);
+            //var a1 = new Alumno();
+
+            //alert(e1.Nombre);
+            //a1.Nombre = 'Julian';
+            //a1.Edad = 20;
+            //alert(a1.Nombre + ' - ' + a1.Edad);
+            //e1.PintarSalario();
+        }
+
+        {
+            //Creacion de nuevos objetos tomando como base otro existente
+            var Persona = function () {
+                this.Nombre = '';
+                this.Apellidos = '';
+                this.Edad = 0;
+                //Funcion publica que llama a un miembro privado    
+                this.Prueba = function () {
+                    Contar();
+                }
+                //variable privada
+                var puntuacion = 0;
+                //Funcion privada
+                function Contar() {
+                    alert('Puntuacion'+puntuacion);
+                };
+            };
+            Persona.prototype.PintarNombre = function () {
+                alert(this.Nombre);
+            };
+
+            ////////////////////////////////////////////////////////////////
+
+            var p1 = new Persona();
+            var Policia = Object.create(Object.getPrototypeOf(p1));
+            //var p2 = new Policia();
+
+
+            ////////////////////////////////////////////////////////////////
+
+            function Bombero() {
+                Persona.call(); //Llama al constructor de Persona
+            };
+            //Copiamos los miembros del objeto Persona a Bombero
+            Bombero.prototype = Object.create(Persona.prototype);
+
+            //Copiamos y extendemos miembros
+            Bombero.prototype = Object.create(Persona.prototype, {
+                Horario: { value: '' },
+                Parque: { value: '' },
+                PintarEdad: {
+                    value: function () {
+                        alert(this.Edad);
+                    }
+                }
+            });
+
+            //Indicamos que el constructor de Bombero es la funcion Bombero
+            Bombero.prototype.constructor = Bombero;
+
+            var b1 = new Bombero();
+            b1.Nombre = 'Sandra';
+            b1.Edad = 34;
+            b1.PintarEdad();
+
+            ////////////////////////////////////////////////////////////////
+
+
+        }
+
+    </script>
+
+</body>
+</html>

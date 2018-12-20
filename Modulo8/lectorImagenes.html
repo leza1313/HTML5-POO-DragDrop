@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <h1>Lector ficheros de texto</h1>
+                <hr />
+                <div class="form-group">
+                    <label>Selecciona una imagen:</label>
+                    <input type="file" name="f1" id="f1" class="form-control" value="" />
+                </div>
+                <br />
+                <div class="text-center">
+                    <img src="#" id="i1" class="img-thumbnail" alt="Alternate Text" style="width:30%; height:auto" />
+                </div>
+                <div class="form-group">
+                    <label>Contenido</label>
+                    <textarea id="c1" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('f1').onchange = function () {
+            var ficheros = document.getElementById('f1').files;
+            var fichero = ficheros[0];
+
+            if (fichero.type != '' && fichero.type.match(/image.*/)) {
+                //Objeto lector de fichero
+                var lector = new FileReader();
+                //Capturamos evento de lectura
+                lector.onload = function (event) {
+                    var contenido = event.target.result;
+                    document.getElementById('i1').setAttribute('src', contenido);
+                    document.getElementById('c1').innerHTML = contenido;
+                }
+                //Capturamos evento de error
+                lector.onerror = function () {
+                    alert('Error al leer la imagen');
+                }
+                //Comenzamos lectura del fichero
+                lector.readAsDataURL(fichero);
+
+            } else {
+                alert('El fichero: ' + fichero.name + ' no es una imagen.');
+            }
+        }
+    </script>
+</body>
+</html>

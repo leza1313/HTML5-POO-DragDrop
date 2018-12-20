@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <h1>Lector ficheros de texto</h1>
+                <hr />
+                <div class="form-group">
+                    <label>Selecciona un fichero de texto:</label>
+                    <input type="file" name="f1" id="f1" class="form-control" value="" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Contenido</label>
+                    <textarea id="c1" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('f1').onchange = function () {
+            var ficheros = document.getElementById('f1').files;
+            var fichero = ficheros[0];
+
+            //alert('Nombre: ' + fichero.name);
+            //alert('Tipo: ' + fichero.type);
+            //alert('Tamaño: ' + fichero.size);
+            //alert('Fecha: ' + fichero.lastModifiedDate);
+
+            if (fichero.type != '' && fichero.type.match(/text.*/)) {
+                //Objeto lector de fichero
+                var lector = new FileReader();
+                //Capturamos evento de lectura
+                lector.onload = function (event) {
+                    var contenido = event.target.result;
+                    document.getElementById('c1').innerHTML = contenido;
+                }
+                //Capturamos evento de error
+                lector.onerror = function () {
+                    alert('Error al leer el fichero');
+                }
+                //Comenzamos lectura del fichero
+                lector.readAsText(fichero);
+
+            } else {
+                alert('El fichero: ' + fichero.name + ' no es de tipo texto.');
+            }
+        }
+    </script>
+</body>
+</html>

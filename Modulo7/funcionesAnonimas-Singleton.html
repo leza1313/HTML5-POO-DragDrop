@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <script>
+        //modo strict variables con nombre unico y definidas
+        "use strict";
+
+        //Funcion anonima que se autoejecuta
+        (function () {
+            alert('Ejecucion inmediata1');
+        })();
+
+        !function () {
+            alert('Ejecucion inmediata2');
+        }();
+
+
+
+
+        var numero = 10;
+        alert('Número: ' + numero);
+
+        function Prueba() {
+            numero = 11;
+            alert('Número: ' + numero);
+
+        }
+        Prueba();
+
+        //Espacio de nombres = Singleton (en JavaScript)
+        var espacioNombres = {
+            numero: 14,
+            nombre: 'Curso de Javascript',
+            notas: [10, 8, 4, 36],
+            PintarNumero: function () {
+                alert('Número: ' + espacioNombres.numero);
+            }
+        };
+        espacioNombres.PintarNumero();
+
+        //Ejemplo de JS en una pagina actual
+        var ejemplo = {
+            general: {
+                valor1: '',
+                valor2: 0,
+                contar: function () { },
+                encriptar: {
+                    simetrico: function () { },
+                    asimetrico: function () { }
+                }
+            },
+            calculo: {},
+            pedidos: {
+                registrar: function () { },
+                eliminar: function () { },
+                consultar: function () { },
+            },
+            producto: {},
+            clientes: {}
+        };
+
+        ejemplo.general.encriptar.asimetrico();
+
+
+
+    </script>
+</body>
+</html>
